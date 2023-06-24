@@ -1,0 +1,58 @@
+public class Account_Contact_Handler {
+    
+    Public static void Triggercntcreate (List<Account>listofaccts){
+        List<Contact>listofcnts=new List<Contact>();
+        for(Account acc:listofaccts){
+            for(integer i=0;i<3;i++){
+                contact ct=new contact();
+                ct.LastName=acc.Name;
+                ct.AccountId=acc.Id;
+                listofcnts.add(ct);
+            }
+            //Git Learning Changes for deploy to org
+            
+        }
+        if(!listofcnts.isEmpty()){
+            insert listofcnts;
+            
+        }
+        
+       
+    }
+    
+    Public static void hardwareowner(List<Account>lstofacccts){
+        
+         List<AccountTeamMember>Accountteamstoinsert=new List<AccountTeamMember>();
+            List<AccountShare>Accountsharetoinsert=new List<AccountShare>();
+            for(Account acc:lstofacccts){
+                if(acc.Hardware_Owner__c!=null){
+                    AccountTeamMember atm=new AccountTeamMember();
+                    atm.AccountId=acc.id;
+                    atm.UserId=acc.Hardware_Owner__c;
+                    atm.AccountAccessLevel='Edit';
+                    atm.OpportunityAccessLevel='Edit';
+                    Accountteamstoinsert.add(atm);
+                    
+                    AccountShare as1=new AccountShare();
+                    as1.AccountId=acc.id;
+                    as1.UserOrGroupId=acc.Hardware_Owner__c;
+                    as1.AccountAccessLevel='Edit';
+                    as1.OpportunityAccessLevel='Edit';
+                    Accountsharetoinsert.add(as1);
+                }
+            }
+            if(!Accountteamstoinsert.isEmpty()){
+                insert Accountteamstoinsert;
+            }
+            
+            if(!Accountsharetoinsert.isEmpty()){
+                insert Accountsharetoinsert;
+                
+                
+            }
+            
+        
+    }
+    
+    
+}
